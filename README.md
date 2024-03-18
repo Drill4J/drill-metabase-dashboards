@@ -6,7 +6,7 @@
 
 **WARNING** DO NOT DISTRIBUTE / INSTALL / SEND THIS REPOSITORY OR ARTIFACTS OUTSIDE OF EPAM PROJECTS **WARNING**
 
-1. Copy [./docker-compose-metabase.yml]
+1. Copy [./docker-compose-metabase.yml](./docker-compose-metabase.yml)
 2. Download `.zip` from the latest release at https://github.com/Drill4J/mtb-config/releases
 3. Unzip next to the compose file
 4. Example dir structure:
