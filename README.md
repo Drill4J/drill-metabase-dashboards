@@ -9,11 +9,10 @@ Drill4J is not affiliated with Metabase. The Metabase components are the subject
 
 ## How to run
 1. Copy [./docker-compose-metabase.yml](./docker-compose-metabase.yml)
-2. Download `.sql` dump file from the latest release https://github.com/Drill4J/drill-metabase-dashboards/releases
+2. Download `data.sql` dump file from the latest release https://github.com/Drill4J/drill-metabase-dashboards/releases
 ```
  -/
  -/docker-compose-metabase.yml
- -/metabase-volumes/pg
  -/metabase-volumes/data.sql
 ```
 5. Run `docker-compose -f docker-compose-metabase.yml up -d` 
