@@ -1,6 +1,6 @@
 # Drill4J - Metabase Dashboards
 
-This repository contains dump files of PostgreSQL tables for [Metabase](https://www.metabase.com/) dashboards.
+This repository provides dump files of PostgreSQL tables for [Metabase](https://www.metabase.com/) dashboards.
 Metabase is employed to display Drill4J metrics.
 
 ## License
@@ -8,16 +8,13 @@ Metabase is employed to display Drill4J metrics.
 Drill4J is not affiliated with Metabase. The Metabase components are the subject to their own [license](https://www.metabase.com/license/).
 
 ## How to run
-1. Copy [./docker-compose-metabase.yml](./docker-compose-metabase.yml)
-2. Download `data.sql` dump file from the latest release https://github.com/Drill4J/drill-metabase-dashboards/releases
-```
- -/
- -/docker-compose-metabase.yml
- -/metabase-volumes/data.sql
-```
-5. Run `docker-compose -f docker-compose-metabase.yml up -d` 
-6. Open `http://localhost:8095`
-7. Login using credentials from comment in `docker-compose-metabase.yml` file beginning
+
+1. Clone repository and navigate to downloaded folder
+2. Apply migration:
+    1. Adjust migration version and credentials in `.env` file
+    2. Execute `docker-compose -f docker-compose-metabase-migration.yml up`
+    3. This will launch docker container containing migration file. Wait for it to complete
+3. Open `http://localhost:8095`
+4. Login using credentials from comment in `docker-compose-metabase.yml` file beginning
 
 You should be able to see preconfigured dashboards. These are likely empty. To see the actual data from your application, run [Drill4J Admin Backend](https://github.com/Drill4J/admin) and setup respective agents following the documentation at https://drill4j.github.io/
-

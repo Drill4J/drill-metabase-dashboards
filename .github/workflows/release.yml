@@ -1,0 +1,32 @@
+name: Publish Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Tag / Version for the Docker image. Example: v22"
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish to Registry
+        uses: jerray/publish-docker-action@master
+        with:
+          username: ${{ secrets.DRILL_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DRILL_DOCKERHUB_PASSWORD }}
+          repository: drill4J/drill-metabase-dashboards
+          tags: latest,${{ github.event.inputs.version }}
+          build_args: ENV=development,VERSION=${{ github.event.inputs.version }}
+
+      - uses: actions/create-release@v1
+        id: create-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ github.event.inputs.version }}
+          prerelease: ${{ github.ref_name != 'main' }}
