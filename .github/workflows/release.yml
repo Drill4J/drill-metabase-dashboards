@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Tag / Version for the Docker image. Example: v22"
+        description: "Tag / Version for the Docker image. Example: 0.9.0"
         required: true
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
         with:
           username: ${{ secrets.GH_CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
-          repository: drill4J/drill-metabase-dashboards
+          repository: ghcr.io/drill4J/drill-metabase-dashboards
           tags: latest,${{ github.event.inputs.version }}
           build_args: ENV=development,VERSION=${{ github.event.inputs.version }}
 
