@@ -16,8 +16,8 @@ jobs:
       - name: Publish to Registry
         uses: jerray/publish-docker-action@master
         with:
-          username: ${{ secrets.DRILL_DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DRILL_DOCKERHUB_PASSWORD }}
+          username: ${{ secrets.GH_CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
           repository: drill4J/drill-metabase-dashboards
           tags: latest,${{ github.event.inputs.version }}
           build_args: ENV=development,VERSION=${{ github.event.inputs.version }}
