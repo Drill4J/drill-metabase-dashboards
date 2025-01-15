@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.GH_CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
           registry: ghcr.io
-          repository: drill4J/drill-metabase-dashboards
+          repository: drill4j/drill-metabase-dashboards
           tags: latest,${{ github.event.inputs.version }}
           build_args: ENV=development,VERSION=${{ github.event.inputs.version }}
 
