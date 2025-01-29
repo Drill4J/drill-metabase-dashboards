@@ -1,11 +1,7 @@
-FROM debian:bullseye-slim
+FROM flyway/flyway:10.22.0
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends postgresql-client && \
-    rm -rf /var/lib/apt/lists/*
+WORKDIR /sql
 
-COPY entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
-COPY data.sql data.sql
+COPY ./sql /sql
 
-ENTRYPOINT ["./entrypoint.sh", "data.sql"]
+ENTRYPOINT ["/bin/sh", "-c", "flyway -url=jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD -locations=filesystem:/sql -schemas=migrations -placeholderPrefix=\"##{{\" migrate"]
