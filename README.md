@@ -18,3 +18,19 @@ Drill4J is not affiliated with Metabase. The Metabase components are the subject
 4. Login using credentials from comment in `docker-compose-metabase.yml` file beginning
 
 You should be able to see preconfigured dashboards. These are likely empty. To see the actual data from your application, run [Drill4J Admin Backend](https://github.com/Drill4J/admin) and setup respective agents following the documentation at https://drill4j.github.io/
+
+## How to create a new migration (for developers)
+
+1. Delete all records from the following tables in the source Metabase database:
+```sql
+DELETE FROM public.view_log;
+DELETE FROM public.task_history;
+DELETE FROM public.query_execution;
+DELETE FROM public.revision;
+DELETE FROM public.core_session;
+DELETE FROM public.login_history;
+```
+2. Create a dump file:
+```bash
+pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f sql/R_Data.sql
+```
