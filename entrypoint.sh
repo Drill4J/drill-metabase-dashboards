@@ -4,4 +4,4 @@ if ! psql -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -tAc "SELECT 1 F
   createdb -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT $POSTGRES_DB
 fi
 
-psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB < data.sql
+flyway -url=jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD -locations=filesystem:/sql -schemas=migrations -placeholderPrefix="##{{" migrate
