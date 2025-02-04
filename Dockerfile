@@ -9,4 +9,4 @@ RUN chmod +x createdb.sh
 
 COPY ./sql /sql
 
-ENTRYPOINT ["/bin/sh", "-c", "flyway -url=jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD -locations=filesystem:/sql -schemas=migrations -placeholderPrefix=\"##{{\" migrate"]
+ENTRYPOINT ["./entrypoint.sh"]
