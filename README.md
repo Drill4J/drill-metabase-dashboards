@@ -29,6 +29,8 @@ DELETE FROM public.query_execution;
 DELETE FROM public.revision;
 DELETE FROM public.core_session;
 DELETE FROM public.login_history;
+DELETE FROM public.query;
+DELETE FROM public.metabase_fieldvalues;
 ```
 2. Create a dump file:
 ```bash
