@@ -34,10 +34,10 @@ DELETE FROM public.metabase_fieldvalues;
 ```
 2. Create a dump file:
 ```bash
-pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f sql/R_Data.sql
+pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
 ```
 Example for local deployment:
 ```bash
-pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R_Data.sql
+pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
 -- password mysecretpassword
 ```
