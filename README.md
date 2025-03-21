@@ -31,6 +31,7 @@ DELETE FROM public.core_session;
 DELETE FROM public.login_history;
 DELETE FROM public.query;
 DELETE FROM public.metabase_fieldvalues;
+DELETE FROM public.user_parameter_value;
 ```
 2. Create a dump file:
 ```bash
