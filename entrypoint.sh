@@ -6,7 +6,7 @@ fi
 
 JDBC_URL="jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$METABASE_DB_NAME"
 case "${POSTGRES_SSL:-false}" in
-  true|TRUE|on|ON|1|yes|YES) JDBC_URL="$JDBC_URL?ssl=true&sslmode=require" ;;
+  true) JDBC_URL="$JDBC_URL?ssl=true&sslmode=require" ;;
 esac
 
 flyway \
