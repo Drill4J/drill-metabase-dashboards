@@ -1,7 +1,9 @@
 #!/bin/sh
-export PGPASSWORD=$POSTGRES_PASSWORD
-if ! psql -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -tAc "SELECT 1 FROM pg_database WHERE datname = '$METABASE_DB_NAME'" | grep -q 1; then
-  createdb -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT $METABASE_DB_NAME
+set -eu
+
+export PGPASSWORD="$POSTGRES_PASSWORD"
+if ! psql -U "$POSTGRES_USER" -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -tAc "SELECT 1 FROM pg_database WHERE datname = '$METABASE_DB_NAME'" | grep -q 1; then
+  createdb -U "$POSTGRES_USER" -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" "$METABASE_DB_NAME"
 fi
 
 JDBC_URL="jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$METABASE_DB_NAME"
