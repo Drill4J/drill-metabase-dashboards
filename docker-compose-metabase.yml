@@ -1,4 +1,3 @@
-version: '3'
 services:
 
   # Step 1. Use the following credentials _to login_ to metabase 
