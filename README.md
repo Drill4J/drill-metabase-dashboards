@@ -35,10 +35,32 @@ DELETE FROM public.user_parameter_value;
 ```
 2. Create a dump file:
 ```bash
-pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
+pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $METABASE_DB_NAME -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./sql/R__0_Data.sql
 ```
 Example for local deployment:
 ```bash
-pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
+pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./sql/R__0_Data.sql
 -- password mysecretpassword
 ```
+3. Update the checksum in `sql/R__1_Config.sql`:
+
+   Calculate the SHA256 checksum of the newly generated `R__0_Data.sql` file:
+
+   **Linux / macOS:**
+   ```bash
+   sha256sum ./sql/R__0_Data.sql
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   (Get-FileHash .\sql\R__0_Data.sql -Algorithm SHA256).Hash.ToLower()
+   ```
+
+   Then replace the checksum value of `sql/R__1_Config.sql` after the phrase `-- R__0_Data.sql file checksum is ` with the newly calculated value:
+   ```sql
+   -- R__0_Data.sql file checksum is <paste-new-checksum-here>
+   ```
+
+   > **Note:** The hashing algorithm can be any (MD5, SHA1, SHA256, etc.) - what matters is that the resulting checksum is unique and changes every time `R__0_Data.sql` is regenerated. This is necessary because Flyway does not re-execute a repeatable migration script (`R__*.sql`) unless its own content has changed. By updating the checksum comment, we force Flyway to re-run `R__1_Config.sql` whenever `R__0_Data.sql` is updated.
+
+
