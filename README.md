@@ -11,7 +11,7 @@ Drill4J is not affiliated with Metabase. The Metabase components are the subject
 
 1. Clone repository and navigate to downloaded folder
 2. Apply migration:
-    1. Adjust migration version and credentials in `.env` file
+    1. Copy `.env.example` to `.env` and adjust migration version and credentials
     2. Execute `docker-compose -f docker-compose-metabase-migration.yml up`
     3. This will launch docker container containing migration file. Wait for it to complete
 3. Open `http://localhost:8095`
