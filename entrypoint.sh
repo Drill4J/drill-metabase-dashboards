@@ -4,4 +4,9 @@ if ! psql -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -tAc "SELECT 1 F
   createdb -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT $POSTGRES_DB
 fi
 
-flyway -url=jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD -locations=filesystem:/sql -schemas=migrations -placeholderPrefix="##{{" migrate
+JDBC_URL="jdbc:postgresql://$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB"
+case "${POSTGRES_SSL:-false}" in
+  true|TRUE|on|ON|1|yes|YES) JDBC_URL="$JDBC_URL?ssl=true&sslmode=require" ;;
+esac
+
+flyway -url="$JDBC_URL" -user=$POSTGRES_USER -password=$POSTGRES_PASSWORD -locations=filesystem:/sql -schemas=migrations -placeholderPrefix="##{{" migrate

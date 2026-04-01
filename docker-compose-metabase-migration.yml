@@ -8,6 +8,7 @@ services:
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_PORT: ${POSTGRES_PORT}
       POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_SSL: ${POSTGRES_SSL}
       POSTGRES_DB: db-metabase
     networks:
       - docker_default  # Specify network on which PostgreSQL container is running
