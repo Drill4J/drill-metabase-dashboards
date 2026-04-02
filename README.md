@@ -42,25 +42,8 @@ Example for local deployment:
 pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./sql/R__0_Data.sql
 -- password mysecretpassword
 ```
-3. Update the checksum in `sql/R__1_Config.sql`:
+3. The checksum in `sql/R__1_Config.sql` is **updated automatically** at container startup (`entrypoint.sh` computes the SHA256 of `R__0_Data.sql` and patches the comment before Flyway runs). No manual action is required.
 
-   Calculate the SHA256 checksum of the newly generated `R__0_Data.sql` file:
-
-   **Linux / macOS:**
-   ```bash
-   sha256sum ./sql/R__0_Data.sql
-   ```
-
-   **Windows (PowerShell):**
-   ```powershell
-   (Get-FileHash .\sql\R__0_Data.sql -Algorithm SHA256).Hash.ToLower()
-   ```
-
-   Then replace the checksum value of `sql/R__1_Config.sql` after the phrase `-- R__0_Data.sql file checksum is ` with the newly calculated value:
-   ```sql
-   -- R__0_Data.sql file checksum is <paste-new-checksum-here>
-   ```
-
-   > **Note:** The hashing algorithm can be any (MD5, SHA1, SHA256, etc.) - what matters is that the resulting checksum is unique and changes every time `R__0_Data.sql` is regenerated. This is necessary because Flyway does not re-execute a repeatable migration script (`R__*.sql`) unless its own content has changed. By updating the checksum comment, we force Flyway to re-run `R__1_Config.sql` whenever `R__0_Data.sql` is updated.
+   > **Note:** `R__1_Config.sql` contains a checksum comment (`-- R__0_Data.sql file checksum is ...`) so that Flyway detects it as changed and re-runs it whenever `R__0_Data.sql` is updated. The `entrypoint.sh` script handles this automatically.
 
 
