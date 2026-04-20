@@ -11,7 +11,7 @@ services:
       POSTGRES_SSL: ${POSTGRES_SSL}
       METABASE_DB_NAME: ${METABASE_DB_NAME}
       DRILL_UI_BASE_URL: ${DRILL_UI_BASE_URL}
-      METABASE_BASE_URL: ${METABASE_BASE_URL}
+      DRILL_DASHBOARDS_BASE_URL: ${DRILL_DASHBOARDS_BASE_URL}
     networks:
       - docker_default  # Specify network on which PostgreSQL container is running
 
