@@ -27,7 +27,7 @@ flyway \
   -placeholders.drillDBHost="$POSTGRES_HOST" \
   -placeholders.drillDBPort="$POSTGRES_PORT" \
   -placeholders.drillDBSSL="$POSTGRES_SSL" \
-  -placeholders.drillDBName="$DRILL_DB_NAME" \
+  -placeholders.drillDBName="$POSTGRES_DB" \
   -placeholders.drillDBUser="$POSTGRES_USER" \
   -placeholders.drillDBPassword="$POSTGRES_PASSWORD" \
   -placeholders.drillUIBaseURL="$DRILL_UI_BASE_URL" \
