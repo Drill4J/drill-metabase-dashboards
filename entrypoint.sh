@@ -16,20 +16,20 @@ case "${POSTGRES_SSL:-false}" in
   true) JDBC_URL="$JDBC_URL?ssl=true&sslmode=require" ;;
 esac
 
-flyway \
-  -url="$JDBC_URL" \
-  -user="$POSTGRES_USER" \
-  -password="$POSTGRES_PASSWORD" \
-  -locations="filesystem:/sql" \
-  -schemas="migrations" \
-  -placeholderPrefix="##{{" \
-  -placeholderSuffix="}}" \
-  -placeholders.drillDBHost="$POSTGRES_HOST" \
-  -placeholders.drillDBPort="$POSTGRES_PORT" \
-  -placeholders.drillDBSSL="$POSTGRES_SSL" \
-  -placeholders.drillDBName="$POSTGRES_DB" \
-  -placeholders.drillDBUser="$POSTGRES_USER" \
-  -placeholders.drillDBPassword="$POSTGRES_PASSWORD" \
-  -placeholders.drillUIBaseURL="$DRILL_UI_BASE_URL" \
-  -placeholders.metabaseBaseURL="$METABASE_BASE_URL" \
-  migrate
+export FLYWAY_URL="$JDBC_URL"
+export FLYWAY_USER="$POSTGRES_USER"
+export FLYWAY_PASSWORD="$POSTGRES_PASSWORD"
+export FLYWAY_LOCATIONS="filesystem:/sql"
+export FLYWAY_SCHEMAS="migrations"
+export FLYWAY_PLACEHOLDER_PREFIX="##{{"
+export FLYWAY_PLACEHOLDER_SUFFIX="}}"
+export FLYWAY_PLACEHOLDERS_DRILLDBHOST="$POSTGRES_HOST"
+export FLYWAY_PLACEHOLDERS_DRILLDBPORT="$POSTGRES_PORT"
+export FLYWAY_PLACEHOLDERS_DRILLDBSSL="$POSTGRES_SSL"
+export FLYWAY_PLACEHOLDERS_DRILLDBNAME="$POSTGRES_DB"
+export FLYWAY_PLACEHOLDERS_DRILLDBUSER="$POSTGRES_USER"
+export FLYWAY_PLACEHOLDERS_DRILLDBPASSWORD="$POSTGRES_PASSWORD"
+export FLYWAY_PLACEHOLDERS_DRILLUIBASEURL="$DRILL_UI_BASE_URL"
+export FLYWAY_PLACEHOLDERS_METABASEBASEURL="$METABASE_BASE_URL"
+
+flyway migrate
