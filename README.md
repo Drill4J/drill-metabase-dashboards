@@ -11,7 +11,7 @@ Drill4J is not affiliated with Metabase. The Metabase components are the subject
 
 1. Clone repository and navigate to downloaded folder
 2. Apply migration:
-    1. Adjust migration version and credentials in `.env` file
+    1. Copy `.env.example` to `.env` and adjust migration version and credentials
     2. Execute `docker-compose -f docker-compose-metabase-migration.yml up`
     3. This will launch docker container containing migration file. Wait for it to complete
 3. Open `http://localhost:8095`
@@ -35,10 +35,15 @@ DELETE FROM public.user_parameter_value;
 ```
 2. Create a dump file:
 ```bash
-pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
+pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $METABASE_DB_NAME -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./sql/R__0_Data.sql
 ```
 Example for local deployment:
 ```bash
-pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./R__Data.sql
+pg_dump -U postgres -h localhost -p 5432 -d db-metabase -n public --no-owner --no-privileges --clean --if-exists --extension=citext --inserts -f ./sql/R__0_Data.sql
 -- password mysecretpassword
 ```
+3. The checksum in `sql/R__1_Config.sql` is **updated automatically** at container startup (`entrypoint.sh` computes the SHA256 of `R__0_Data.sql` and patches the comment before Flyway runs). No manual action is required.
+
+   > **Note:** `R__1_Config.sql` contains a checksum comment (`-- R__0_Data.sql file checksum is ...`) so that Flyway detects it as changed and re-runs it whenever `R__0_Data.sql` is updated. The `entrypoint.sh` script handles this automatically.
+
+
