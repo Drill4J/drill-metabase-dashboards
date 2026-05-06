@@ -1,0 +1,9 @@
+.git
+.github
+.idea
+.env
+.dockerignore
+docker-compose-*.yml
+run.bat
+README.md
+
