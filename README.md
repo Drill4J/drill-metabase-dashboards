@@ -1,4 +1,5 @@
-# Drill4J - Metabase Dashboards
+# Drill4J - Metabase Dashboards [ARCHIVED, DEPRECATED]
+> This repository is no longer used or maintained - since 0.11.0 release - PostgreSQL dump files containing Metabase dashboards configured to interact with Drill4J data and metrics
 
 This repository provides dump files of PostgreSQL tables for [Metabase](https://www.metabase.com/) dashboards.
 Metabase is employed to display Drill4J metrics.
